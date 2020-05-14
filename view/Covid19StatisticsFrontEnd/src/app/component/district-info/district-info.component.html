@@ -1,0 +1,103 @@
+<div class="container text-center vertical-center" *ngIf="!showLoader">
+  <div class="spinner-grow text-primary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-secondary" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-success" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-danger" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-warning" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-info" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+  <div class="spinner-grow text-dark" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>    
+</div>
+<div class="container-fluid p-3 my-3 border" *ngIf="showLoader">
+  <div class="row">
+    <div style="padding-left: 16px;">
+      <p>Select your state here...</p>
+      <select style="font-size: small;" class="btn btn-secondary dropdown-toggle" name="statelist" [(ngModel)]="selectedState" 
+      (ngModelChange)='changeStateName($event)'>
+        <option *ngFor="let state of states" [value]="state.statecode">{{state.statename}}</option>
+      </select>
+    </div>
+  </div>
+  <br>
+  <div class="row">
+  <div class="col">
+    <div class="card align-items-stretch">
+      <div class="card-header bg-warning text-white"><strong> Confirmed  </strong></div>
+      <div class="card-body">{{ stateConfirmed }}</div> 
+    </div>
+  </div>
+  <div class="col">
+    <div class="card align-items-stretch">
+      <div class="card-header bg-info text-white"><strong> Active  </strong></div>
+      <div class="card-body">{{ stateActive }}</div> 
+    </div>
+  </div>
+  <div class="col">
+    <div class="card align-items-stretch">
+      <div class="card-header bg-success text-white"><strong> Recovered  </strong></div>
+      <div class="card-body">{{ stateRecovered }}</div> 
+    </div>
+  </div>
+  <div class="col">
+    <div class="card align-items-stretch">
+      <div class="card-header bg-danger text-white"><strong> Deceased  </strong></div>
+      <div class="card-body">{{ stateDeceased }}</div> 
+    </div>
+  </div>
+  </div>
+<br/>
+<div class="table-responsive text-nowrap">
+<table class="table table-hover">
+    <thead class="thead-dark">
+      <tr>
+        <th> Number </th>
+        <th>District Name</th>
+        <th><a (click)="sortConfirm(!sortConfirmed, 0)">
+          Confirmed
+          <span *ngIf="!sortConfirmed" class="fa fa-caret-down"></span>
+          <span *ngIf="sortConfirmed" class="fa fa-caret-up"></span>
+        </a></th>
+        <th><a (click)="sortActives(!sortActive, 1)">
+          Active
+          <span *ngIf="!sortActive" class="fa fa-caret-down"></span>
+          <span *ngIf="sortActive" class="fa fa-caret-up"></span>
+        </a></th>
+        <th><a (click)="sortRecover(!sortRecovered, 3)">
+          Recovered
+          <span *ngIf="!sortRecovered" class="fa fa-caret-down"></span>
+          <span *ngIf="sortRecovered" class="fa fa-caret-up"></span>
+        </a></th>
+        <th><a (click)="sortDeceas(!sortDeceased, 2)">
+          Deceased
+          <span *ngIf="!sortDeceased" class="fa fa-caret-down"></span>
+          <span *ngIf="sortDeceased" class="fa fa-caret-up"></span>
+        </a></th>
+      </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let district of districts; let num = index"> 
+         <!-- <tr ng-repeat="district in districts">  -->
+            <td>{{ num+1 }}</td>
+            <td>{{ district.districtName }}</td>
+            <td>{{ district.confirmed }}</td>
+            <td>{{ district.active }}</td>
+            <td>{{ district.recovered }}</td>
+            <td>{{ district.deceased }}</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+</div>
